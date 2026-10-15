@@ -6,39 +6,40 @@ import { useCallback } from "react";
 
 extend({ Graphics });
 
-export default function GameBoard() {
+// function to draw game grid
+export default function GameGraph() {
   const drawGrid = useCallback((graphics: Graphics) => {
     graphics.clear();
 
-    // Draw vertical grid lines
+    // draw vertical grid lines
     for (let x = 0; x <= 800; x += 40) {
       graphics.moveTo(x, 0);
-      graphics.lineTo(x, 500);
+      graphics.lineTo(x, 480);
     }
 
-    // Draw horizontal grid lines
-    for (let y = 0; y <= 500; y += 40) {
+    // draw horizontal grid lines
+    for (let y = 0; y <= 480; y += 40) {
       graphics.moveTo(0, y);
       graphics.lineTo(800, y);
     }
 
     graphics.stroke({ color: 0x334155, width: 1 });
 
-    // Draw coordinate axes
+    // draw coordinate axes
     graphics.moveTo(400, 0);
-    graphics.lineTo(400, 500);
+    graphics.lineTo(400, 480);
 
-    graphics.moveTo(0, 250);
-    graphics.lineTo(800, 250);
+    graphics.moveTo(0, 240);
+    graphics.lineTo(800, 240);
 
     graphics.stroke({ color: 0xffffff, width: 2 });
   }, []);
 
   return (
-  <div className="game-board">
+  <div className="game-graph">
     <Application
       width={800}
-      height={500}
+      height={480}
       background="#0f172a"
       antialias
     >
