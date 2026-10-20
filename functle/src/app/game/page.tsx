@@ -1,5 +1,5 @@
 import GameGraphLoader from "@/components/GameGraphLoader";
-import type { Point } from "./Types";
+import type { Point } from "@/components/Types";
 
 const samplePoints: Point[] = [
   { x: 0, y: 0 },
