@@ -61,7 +61,7 @@ function drawCircles(graphics: Graphics, points: Point[]) {
 export default function GameGraph({ points = [] }: { points?: Point[] }) {
 
   const drawGridBounds = useCallback(
-    (g: Graphics) => {drawGrid(graphics);
+    (g: Graphics) => {drawGrid(g);
     }, []);
 
   const drawPoints = useCallback(
