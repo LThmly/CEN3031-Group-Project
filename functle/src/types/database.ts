@@ -59,31 +59,101 @@ export type Database = {
           },
         ]
       }
-      obstacles: {
+      obstacle_circles: {
         Row: {
           created_at: string
-          data: Json
           id: number
           puzzle_id: number
-          shape: string
+          radius: number
+          x: number
+          y: number
         }
         Insert: {
           created_at?: string
-          data: Json
           id?: never
           puzzle_id: number
-          shape: string
+          radius: number
+          x: number
+          y: number
         }
         Update: {
           created_at?: string
-          data?: Json
           id?: never
           puzzle_id?: number
-          shape?: string
+          radius?: number
+          x?: number
+          y?: number
         }
         Relationships: [
           {
-            foreignKeyName: "obstacles_puzzle_id_fkey"
+            foreignKeyName: "obstacle_circles_puzzle_id_fkey"
+            columns: ["puzzle_id"]
+            isOneToOne: false
+            referencedRelation: "puzzles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      obstacle_polygons: {
+        Row: {
+          created_at: string
+          id: number
+          points: Json
+          puzzle_id: number
+        }
+        Insert: {
+          created_at?: string
+          id?: never
+          points: Json
+          puzzle_id: number
+        }
+        Update: {
+          created_at?: string
+          id?: never
+          points?: Json
+          puzzle_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "obstacle_polygons_puzzle_id_fkey"
+            columns: ["puzzle_id"]
+            isOneToOne: false
+            referencedRelation: "puzzles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      obstacle_rects: {
+        Row: {
+          created_at: string
+          height: number
+          id: number
+          puzzle_id: number
+          width: number
+          x: number
+          y: number
+        }
+        Insert: {
+          created_at?: string
+          height: number
+          id?: never
+          puzzle_id: number
+          width: number
+          x: number
+          y: number
+        }
+        Update: {
+          created_at?: string
+          height?: number
+          id?: never
+          puzzle_id?: number
+          width?: number
+          x?: number
+          y?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "obstacle_rects_puzzle_id_fkey"
             columns: ["puzzle_id"]
             isOneToOne: false
             referencedRelation: "puzzles"
