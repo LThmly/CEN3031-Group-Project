@@ -34,6 +34,12 @@ const config: Config = {
 
   // The test environment that will be used for testing
   testEnvironment: "jsdom",
+
+  // since we have node.js tests and jest tests we don't want jest trying to run node tests
+  testMatch: [
+  "<rootDir>/tests/**/*.test.ts",
+  "<rootDir>/tests/**/*.test.tsx",
+  ],
 };
 
 export default createJestConfig(config);

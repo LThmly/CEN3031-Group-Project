@@ -94,35 +94,6 @@ export type Database = {
           },
         ]
       }
-      obstacle_polygons: {
-        Row: {
-          created_at: string
-          id: number
-          points: Json
-          puzzle_id: number
-        }
-        Insert: {
-          created_at?: string
-          id?: never
-          points: Json
-          puzzle_id: number
-        }
-        Update: {
-          created_at?: string
-          id?: never
-          points?: Json
-          puzzle_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "obstacle_polygons_puzzle_id_fkey"
-            columns: ["puzzle_id"]
-            isOneToOne: false
-            referencedRelation: "puzzles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       obstacle_rects: {
         Row: {
           created_at: string

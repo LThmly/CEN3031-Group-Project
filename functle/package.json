@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "db:types": "npx --yes supabase gen types typescript --project-id kbvnndfbjmuemkyvgxrb --schema public > src/types/database.ts",
-    "test": "jest",
+    "test":"npm run test:jest && npm run test:node",
+    "test:node": "node --test src/lib/*.test.ts",
+    "test:jest": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
