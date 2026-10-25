@@ -6,23 +6,21 @@ with p as (
   values (current_date, -5, 0, 5, 0)
   on conflict (puzzle_date) do nothing
   returning id
+), c as (
+  insert into public.obstacle_circles (puzzle_id, x, y, radius)
+  select id, 3, 3, 1 from p
 )
-insert into public.obstacles (puzzle_id, shape, data)
-select id, shape, data::jsonb
-from p, (values
-  ('rect', '{"x": -1, "y": -1, "width": 2, "height": 2}'),
-  ('circle', '{"cx": 3, "cy": 3, "r": 1}')
-) as o (shape, data);
+insert into public.obstacle_rects (puzzle_id, x, y, width, height)
+select id, -1, -1, 2, 2 from p;
 
 with p as (
   insert into public.puzzles (puzzle_date, start_x, start_y, end_x, end_y)
   values (current_date + 1, -4, -2, 4, 2)
   on conflict (puzzle_date) do nothing
   returning id
+), c as (
+  insert into public.obstacle_circles (puzzle_id, x, y, radius)
+  select id, 0, 0, 1.5 from p
 )
-insert into public.obstacles (puzzle_id, shape, data)
-select id, shape, data::jsonb
-from p, (values
-  ('circle', '{"cx": 0, "cy": 0, "r": 1.5}'),
-  ('polygon', '{"points": [[2, -3], [3, -1], [1, -1]]}')
-) as o (shape, data);
+insert into public.obstacle_polygons (puzzle_id, points)
+select id, '[[2, -3], [3, -1], [1, -1]]'::jsonb from p;
