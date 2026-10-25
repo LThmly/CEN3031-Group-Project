@@ -199,6 +199,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      delete_own_account: { Args: never; Returns: undefined }
       get_leaderboard: {
         Args: { p_limit?: number; p_puzzle_id: number }
         Returns: {
