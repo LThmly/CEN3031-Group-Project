@@ -45,6 +45,6 @@ body {
   max-width: 100%;
   max-height: 100%;
 
-  aspect-ratio: 5 / 3; /* keeps the structure of the graph */
+  /* intrinsic size comes from the canvas width/height attributes */
   object-fit: contain;
 }

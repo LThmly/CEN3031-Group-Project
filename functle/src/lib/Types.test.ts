@@ -26,9 +26,9 @@ test("a value of 0 maps onto the horizontal axis", () => {
 
 test("first value 0 maps exactly to the off-center graph origin", () => {
   assert.deepEqual(valuesToPoints([0], 5), [ORIGIN]);
-  // 720px plot / 60 graph units, offset by 40px padding
+  // 720px plot / 60 graph units on each axis, offset by 40px padding
   assert.ok(Math.abs(ORIGIN.x - 160) < 1e-9);
-  assert.ok(Math.abs(ORIGIN.y - 240) < 1e-9);
+  assert.ok(Math.abs(ORIGIN.y - 400) < 1e-9);
 });
 
 test("spaces samples by xDelta in canvas pixels", () => {

@@ -1,6 +1,10 @@
 import GameGraphLoader from "@/components/GameGraphLoader";
 import type { GraphPoint } from "@/lib/Types";
 import { toScreen } from "@/lib/graphTransform";
+import { getObstaclesForFirstPuzzle } from "@/lib/obstacles";
+
+// puzzle rows are database-backed; never serve a prerendered snapshot
+export const dynamic = "force-dynamic";
 
 // demo points in graph coordinates, mapped to the canvas pixels GameGraph draws
 const samplePoints: GraphPoint[] = [
@@ -12,7 +16,9 @@ const samplePoints: GraphPoint[] = [
   return { x: sx, y: sy };
 });
 
-export default function GameGraph() {
+export default async function GameGraph() {
+  const obstacles = await getObstaclesForFirstPuzzle();
+
   return (
     /* 
     sets up the layout of the page so that it fills the screen and can't scroll and then splits the screen into 3 grid rows for each component
@@ -29,7 +35,7 @@ export default function GameGraph() {
       {/* Graph */}
       <section className="flex min-h-0 min-w-0 items-center justify-center py-4">
         <div className="h-full w-full min-h-0">
-          <GameGraphLoader points={samplePoints} />
+          <GameGraphLoader points={samplePoints} obstacles={obstacles} />
         </div>
       </section>
 

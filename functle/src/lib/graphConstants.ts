@@ -1,5 +1,5 @@
 export const GRAPH_WIDTH = 800;
-export const GRAPH_HEIGHT = 480;
+export const GRAPH_HEIGHT = 800;
 
 // graph domain: -10 < x < 50, -30 < y < 30
 export const MIN_X = -10;
