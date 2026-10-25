@@ -5,11 +5,11 @@ import { toScreen } from "@/lib/graphTransform";
 // demo points in graph coordinates, mapped to the canvas pixels GameGraph draws
 const samplePoints: GraphPoint[] = [
   { x: 0, y: 0 },
-  { x: 20, y: 10 },
-  { x: -5, y: -20, radius: 12 },
-].map(({ x, y, ...style }) => {
+  { x: 1, y: 4 },
+  { x: 2, y: 3 },
+].map(({ x, y }) => {
   const { sx, sy } = toScreen(x, y);
-  return { ...style, x: sx, y: sy };
+  return { x: sx, y: sy };
 });
 
 export default function GameGraph() {

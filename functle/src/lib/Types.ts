@@ -1,11 +1,9 @@
 import { toScreen } from "./graphTransform.ts";
 
-/** A function sample plotted on the game graph, in canvas pixels. */
+/** A function sample on the game graph, in canvas pixels; drawn as a line. */
 export type GraphPoint = {
   x: number;
   y: number;
-  radius?: number;
-  color?: number;
 };
 
 type ObstacleBase = {

@@ -88,18 +88,6 @@ function drawLine(graphics: Graphics, points: GraphPoint[]) {
 
 
 
-// draw a circle for every point passed in (points are already canvas pixels)
-function drawCircles(graphics: Graphics, points: GraphPoint[]) {
-  graphics.clear();
-
-  for (const { x, y, radius = 8, color = 0xf8385d } of points) {
-    graphics
-      .circle(x, y, radius)
-      .fill({ color })
-      .stroke({ color: 0xffffff, width: 1, alpha: 0.7 });
-  }
-}
-
 // draw obstacles as circles or rectangles (points are canvas pixels)
 function drawObstacles(graphics: Graphics, obstacles: Obstacle[]) {
   graphics.clear();
@@ -133,11 +121,6 @@ export default function GameGraph({
   points?: GraphPoint[];
   obstacles?: Obstacle[];
 }) {
-  const drawPoints = useCallback(
-    (graphics: Graphics) => drawCircles(graphics, points),
-    [points]
-  );
-
   const drawLineBetweenPoints = useCallback(
     (graphics: Graphics) => drawLine(graphics, points),
     [points]
@@ -158,7 +141,6 @@ export default function GameGraph({
       >
         <pixiGraphics draw={drawGrid} />
         <pixiGraphics draw={drawLineBetweenPoints} />
-        <pixiGraphics draw={drawPoints} />
         <pixiGraphics draw={drawObstacleShapes} />
       </Application>
     </div>
