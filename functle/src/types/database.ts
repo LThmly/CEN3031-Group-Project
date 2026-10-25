@@ -17,28 +17,28 @@ export type Database = {
       attempts: {
         Row: {
           created_at: string
+          distance: number | null
           function_expr: string
           id: number
           puzzle_id: number
-          score: number | null
           success: boolean
           user_id: string
         }
         Insert: {
           created_at?: string
+          distance?: number | null
           function_expr: string
           id?: never
           puzzle_id: number
-          score?: number | null
           success?: boolean
           user_id?: string
         }
         Update: {
           created_at?: string
+          distance?: number | null
           function_expr?: string
           id?: never
           puzzle_id?: number
-          score?: number | null
           success?: boolean
           user_id?: string
         }
@@ -87,35 +87,6 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "obstacle_circles_puzzle_id_fkey"
-            columns: ["puzzle_id"]
-            isOneToOne: false
-            referencedRelation: "puzzles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      obstacle_polygons: {
-        Row: {
-          created_at: string
-          id: number
-          points: Json
-          puzzle_id: number
-        }
-        Insert: {
-          created_at?: string
-          id?: never
-          points: Json
-          puzzle_id: number
-        }
-        Update: {
-          created_at?: string
-          id?: never
-          points?: Json
-          puzzle_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "obstacle_polygons_puzzle_id_fkey"
             columns: ["puzzle_id"]
             isOneToOne: false
             referencedRelation: "puzzles"
@@ -228,6 +199,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_leaderboard: {
+        Args: { p_limit?: number; p_puzzle_id: number }
+        Returns: {
+          distance: number
+          rank: number
+          tries: number
+          username: string
+        }[]
+      }
       is_admin: { Args: never; Returns: boolean }
     }
     Enums: {
