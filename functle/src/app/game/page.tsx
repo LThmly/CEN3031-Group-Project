@@ -1,11 +1,16 @@
 import GameGraphLoader from "@/components/GameGraphLoader";
-import type { Point } from "./Types";
+import type { GraphPoint } from "@/lib/Types";
+import { toScreen } from "@/lib/graphTransform";
 
-const samplePoints: Point[] = [
+// demo points in graph coordinates, mapped to the canvas pixels GameGraph draws
+const samplePoints: GraphPoint[] = [
   { x: 0, y: 0 },
-  { x: 80, y: 40,},
-  { x: -120, y: -80, radius: 12 },
-];
+  { x: 20, y: 10 },
+  { x: -5, y: -20, radius: 12 },
+].map(({ x, y, ...style }) => {
+  const { sx, sy } = toScreen(x, y);
+  return { ...style, x: sx, y: sy };
+});
 
 export default function GameGraph() {
   return (
