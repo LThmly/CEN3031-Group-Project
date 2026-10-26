@@ -3,6 +3,16 @@
 import { useRef, useState } from "react";
 
 const keys = ["7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", ".", "x", "+", "(", ")", "^", "sqrt("];
+const scientificKeys = [
+  { label: "sin", value: "sin(" },
+  { label: "cos", value: "cos(" },
+  { label: "tan", value: "tan(" },
+  { label: "abs", value: "abs(" },
+  { label: "log", value: "log(", title: "Natural logarithm" },
+  { label: "exp", value: "exp(" },
+  { label: "π", value: "pi" },
+  { label: "e", value: "e" },
+];
 
 export default function FunctionInput() {
   const [expression, setExpression] = useState("");
@@ -28,7 +38,7 @@ export default function FunctionInput() {
   const buttonClass = "rounded border border-zinc-700 bg-zinc-900 p-3 font-mono hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
 
   return (
-    <section aria-label="Function calculator" className="w-full max-w-sm space-y-4 justify-self-center lg:justify-self-end">
+    <section aria-label="Function calculator" className="w-full max-w-sm space-y-4 justify-self-center lg:max-h-full lg:overflow-y-auto lg:p-1 lg:justify-self-end">
       <label htmlFor="function-expression" className="block font-mono">
         f(x) =
       </label>
@@ -75,6 +85,20 @@ export default function FunctionInput() {
             onClick={() => edit(key)}
           >
             {key}
+          </button>
+        ))}
+      </div>
+      <div aria-label="Scientific functions" className="grid grid-cols-4 gap-2">
+        {scientificKeys.map(({ label, value, title }) => (
+          <button
+            key={label}
+            type="button"
+            title={title}
+            className={buttonClass}
+            onMouseDown={(event) => event.preventDefault()}
+            onClick={() => edit(value)}
+          >
+            {label}
           </button>
         ))}
       </div>
