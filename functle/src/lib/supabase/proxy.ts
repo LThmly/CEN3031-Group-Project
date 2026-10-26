@@ -36,8 +36,11 @@ export async function updateSession(request: NextRequest) {
   // getClaims() is what triggers the token refresh.
   const { data } = await supabase.auth.getClaims();
 
-  // logged out users can't get into /admin (role is checked in the page itself)
-  if (!data?.claims && request.nextUrl.pathname.startsWith("/admin")) {
+  // logged out users get sent to login (admin role is checked in the page itself)
+  const needsLogin = ["/admin", "/account"].some((path) =>
+    request.nextUrl.pathname.startsWith(path),
+  );
+  if (!data?.claims && needsLogin) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     url.search = `?next=${encodeURIComponent(request.nextUrl.pathname)}`;
