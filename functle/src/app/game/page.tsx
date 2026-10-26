@@ -1,3 +1,5 @@
+import Image from "next/image";
+import FunctionInput from "@/components/FunctionInput";
 import GameGraphLoader from "@/components/GameGraphLoader";
 import type { GraphPoint } from "@/lib/Types";
 import { toScreen } from "@/lib/graphTransform";
@@ -20,30 +22,26 @@ export default async function GameGraph() {
   const obstacles = await getObstaclesForFirstPuzzle();
 
   return (
-    /* 
-    sets up the layout of the page so that it fills the screen and can't scroll and then splits the screen into 3 grid rows for each component
-    */ 
-    <main className="grid h-dvh grid-rows-[auto_minmax(0,1fr)_25%] overflow-hidden bg-slate-950 px-6 py-4 text-white">
+    <main className="flex min-h-dvh flex-col bg-black px-6 py-4 text-white lg:h-dvh lg:overflow-hidden">
 
       {/* Header */}
-      <header className="text-center">
-        <h1 className="text-4xl font-bold">
-          Functle
-        </h1>
+      <header className="flex justify-center">
+        <Image
+          src="/functle-logo.png"
+          alt="Functle"
+          width={490}
+          height={198}
+          priority
+          className="h-auto w-full max-w-md"
+        />
       </header>
 
-      {/* Graph */}
-      <section className="flex min-h-0 min-w-0 items-center justify-center py-4">
-        <div className="h-full w-full min-h-0">
+      <div className="grid w-full max-w-7xl flex-1 grid-cols-1 items-center gap-6 self-center py-4 lg:min-h-0 lg:grid-cols-[minmax(0,1fr)_20rem]">
+        <section aria-label="Game graph" className="flex min-h-0 min-w-0 items-center justify-center lg:h-full">
           <GameGraphLoader points={samplePoints} obstacles={obstacles} />
-        </div>
-      </section>
-
-      {/* Blank space for input ui */}
-      {/* Future controls */}
-      <section className="min-h-0 w-full">
-        {/* Game controls will go here */}
-      </section>
+        </section>
+        <FunctionInput />
+      </div>
 
     </main>
   );

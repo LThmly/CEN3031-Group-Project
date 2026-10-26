@@ -136,7 +136,7 @@ export default function GameGraph({
       <Application
         width={GRAPH_WIDTH}
         height={GRAPH_HEIGHT}
-        background="#0f172a"
+        background="#000000"
         antialias
       >
         <pixiGraphics draw={drawGrid} />
