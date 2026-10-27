@@ -14,7 +14,12 @@ const scientificKeys = [
   { label: "e", value: "e" },
 ];
 
-export default function FunctionInput() {
+// added to allow for the expression to be submitted when the user presses the Enter key
+interface FunctionInputProps {
+  onSubmit: (expression: string) => void;
+}
+
+export default function FunctionInput({ onSubmit }: FunctionInputProps) {
   const [expression, setExpression] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -35,6 +40,7 @@ export default function FunctionInput() {
     });
   }
 
+
   const buttonClass = "rounded border border-zinc-700 bg-zinc-900 p-3 font-mono hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
 
   return (
@@ -52,6 +58,11 @@ export default function FunctionInput() {
         spellCheck={false}
         value={expression}
         onChange={(event) => setExpression(event.target.value)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            onSubmit(expression);
+          }
+  }}
         className="w-full rounded border border-zinc-400 bg-transparent p-3 font-mono"
       />
       <div className="grid grid-cols-2 gap-2">
@@ -102,9 +113,12 @@ export default function FunctionInput() {
           </button>
         ))}
       </div>
-      <button type="button" className={`${buttonClass} w-full`}>
+      <button type="button" 
+      className={`${buttonClass} w-full`} 
+      onClick={() => onSubmit(expression)}>
         Enter
       </button>
+      
     </section>
   );
 }

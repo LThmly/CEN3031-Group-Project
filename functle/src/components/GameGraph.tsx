@@ -3,6 +3,7 @@
 import { Application, extend } from "@pixi/react";
 import { Graphics, Text } from "pixi.js";
 import { useCallback } from "react";
+import { clipLine } from "@/lib/clipLine";
 
 //our defined types
 import type { GraphPoint, Obstacle } from "@/lib/Types";
@@ -78,11 +79,40 @@ function drawLine(graphics: Graphics, points: GraphPoint[]) {
 
   if (points.length < 2) return;
 
-  graphics.moveTo(points[0].x, points[0].y);
+  const bounds = {
+    left: PLOT_LEFT,
+    right: PLOT_RIGHT,
+    top: PLOT_TOP,
+    bottom: PLOT_BOTTOM,
+  };
+
+  let hasVisibleSegments = false;
+
   for (let i = 1; i < points.length; i++) {
-    graphics.lineTo(points[i].x, points[i].y);
+    const segment = clipLine(
+      points[i - 1],
+      points[i],
+      bounds
+    );
+
+    if (!segment) continue;
+
+    const [start, end] = segment;
+
+    // Only draw the visible portion of this segment
+    graphics.moveTo(start.x, start.y);
+    graphics.lineTo(end.x, end.y);
+
+    hasVisibleSegments = true;
   }
-  graphics.stroke({ color: 0xf8385d, width: 2, alpha: 0.8 });
+
+  if (hasVisibleSegments) {
+    graphics.stroke({
+      color: 0xf8385d,
+      width: 2,
+      alpha: 0.8,
+    });
+  }
 }
 
 
